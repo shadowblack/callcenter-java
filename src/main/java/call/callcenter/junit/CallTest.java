@@ -1,84 +1,69 @@
-package com.callcenter.main;
+package call.callcenter.junit;
 
+import com.callcenter.main.Call;
+import com.callcenter.main.Dispatcher;
+import com.callcenter.main.Employee;
+import com.callcenter.main.SimultaneousCalls;
+import junit.framework.TestCase;
+import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
 
+
 /**
- * Created by hitok on 24/06/2017.
+ * Created by hitok on 25/06/2017.
+ * Debe tener un test unitario donde lleguen 10 llamadas.
  */
-public class Main {
 
-    public static Dispatcher dispatcher = new Dispatcher();
+public class CallTest extends TestCase {
 
-    public static void main(String[] args)  {
-
-        try {
-            /**
-             * Debe tener un test unitario donde lleguen 10 llamadas.
-             * */
-
-            //test10Call
-
-            /**
-             * Dar alguna solución sobre qué pasa con una llamada cuando no
-             hay ningún empleado libre.
-             * */
-            //testNoAvailabilityCall();
-
-
-            /**
-             * Dar alguna solución sobre qué pasa con una llamada cuando
-             entran más de 10 llamadas concurrentes.
-             * */
-            testMore10Call();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-    }
+    public Dispatcher dispatcher = new Dispatcher();
 
     /**
      * @case normal cuando hay llamadas y hay empleados
      * */
-
-    public static void test10Call()throws InterruptedException, ExecutionException {
-        makeEmployessCaseA();
+    @Test
+    public void test10Call()throws InterruptedException, ExecutionException {
+        this.makeEmployessCaseA();
         try {
-            makeCall();
+            this.makeCall();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-
+    @Test
     /**
      * @case cuando hay mas de 10 llamadas
      * */
-    public static void testMore10Call()throws InterruptedException, ExecutionException {
-        makeEmployessCaseA();
+    public void testMore10Call()throws InterruptedException, ExecutionException {
+        this.makeEmployessCaseA();
         try {
-            makeMore10Call();
+            this.makeMore10Call();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-
+    @Test
     /**
-     * @case no hay diponibilidad
-     * */
-    public static void testNoAvailabilityCall()throws InterruptedException, ExecutionException {
-        makeEmployessCaseB();
+    * @case no hay diponibilidad
+     * Dar alguna solución sobre qué pasa con una llamada cuando no
+     * hay ningún empleado libre.
+    * */
+    public void testNoAvailabilityCall()throws InterruptedException, ExecutionException {
+        this.makeEmployessCaseB();
         try {
-            makeCall();
+            this.makeCall();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
-    private static void makeEmployessCaseB(){
+    /**
+     * @case Dar alguna solución sobre qué pasa con una llamada cuando
+     entran más de 10 llamadas concurrentes.
+     * */
+    private void makeEmployessCaseB(){
 
         // operadores
         dispatcher.operadores.add( new Employee(1,  false));
@@ -91,7 +76,7 @@ public class Main {
         dispatcher.directores.add( new Employee(4, false));
     }
 
-    private static void makeEmployessCaseA(){
+    private void makeEmployessCaseA(){
 
         // operadores
         dispatcher.operadores.add( new Employee(1,  false));
@@ -105,13 +90,13 @@ public class Main {
     }
 
     /**
-     * Armando 10 llamadas
-     * */
-    private static void makeCall() throws InterruptedException {
+    * Armando 10 llamadas
+    * */
+    private void makeCall() throws InterruptedException {
 
         for (int i = 0; i < 10; i++){
             SimultaneousCalls calling = new SimultaneousCalls();
-            calling.setDispatcher(dispatcher);
+            calling.setDispatcher(this.dispatcher);
             calling.setCall(new Call(i));
             calling.setPriority(10 - i);
             calling.start();
@@ -122,16 +107,15 @@ public class Main {
     /**
      * Armando 10 llamadas
      * */
-    private static void makeMore10Call() throws InterruptedException {
+    private void makeMore10Call() throws InterruptedException {
 
         for (int i = 0; i < 11; i++){
             SimultaneousCalls calling = new SimultaneousCalls();
-            calling.setDispatcher(dispatcher);
+            calling.setDispatcher(this.dispatcher);
             calling.setCall(new Call(i));
-            //calling.setPriority(11 - i);
+            calling.setPriority(11 - i);
             calling.start();
             System.out.println("Llamadas entrantes" + calling.num_thread);
         }
     }
-
 }

@@ -33,3 +33,6 @@ El proyecto debe ser creado con Maven.
 De ser necesario, anexar un documento con la explicación del
 cómo y porqué resolvió los puntos extras, o comentarlo en las
 clases donde se encuentran sus tests unitarios respectivos.
+
+# Respuesta del desarrollador lmarin
+Los casos de prueba se encuentran en el archivo CallTest, si tienen problemas con la visualizacion de los hilos, pueden hacer las mismas pruebas en la Clase Main

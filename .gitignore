@@ -1,0 +1,18 @@
+# Created by .ignore support plugin (hsz.mobi)
+*.iml
+*.idea
+.idea
+vcs.xml
+.idea/compiler.xml
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+src/main/resources/
+src/test/
+target/generated-sources/
+target/classes/call/
+target/classes/com/callcenter/main/Call.class
+target/classes/com/callcenter/main/Dispacher.class
+target/classes/com/callcenter/main/Employee.class
+target/classes/com/callcenter/main/SimultaneousCalls.class
